@@ -1,39 +1,47 @@
-i#include "main.h"
+#include "main.h"
 #include <stdlib.h>
 
 /**
- * alloc_grid - func create a 2d integer grid using malloc.
- * Description: Each element of the grid should be initialized to 0.
- * @width: int size width
- * @height: int size height
- * Return: Pointer to new grid
+ * alloc_grid - Returns a pointer to a 2D array of integers with each
+ * element initalized to 0.
+ * @width: The width of the 2-dimensional array.
+ * @height: The height of the 2-dimensional array.
+ *
+ * Return: Returns NULL for width <= 0, height <= 0, and if function fails;
+ * Else, a pointer to the 2-dimensional array of integers.
  */
-
 int **alloc_grid(int width, int height)
 {
-	int **grid;
-	int i, j;
+	int **_2D;
+	int height_index, width_index;
 
-	if (width + height < 2 || width < 1 || height < 1)
+	if (width <= 0 || height <= 0)
 		return (NULL);
 
-	grid = malloc(height * sizeof(*grid));
-	if (grid == NULL)
+	_2D = malloc(sizeof(int *) * height);
+
+	if (_2D == NULL)
 		return (NULL);
 
-	for (i = 0; i < height; i++)
+	for (height_index = 0; height_index < height; height_index++)
 	{
-		grid[i] = malloc(width * sizeof(**grid));
-		if (grid[i] == NULL)
+		_2D[height_index] = malloc(sizeof(int) * width);
+
+		if (_2D[height_index] == NULL)
 		{
-			for (i--; i >= 0; i--)
-				free(grid[i]);
-			free(grid);
+			for (; height_index >= 0; height_index--)
+				free(_2D[height_index]);
+
+			free(_2D);
 			return (NULL);
 		}
-		for (j = 0; j < width; j++)
-			grid[i][j] = 0;
 	}
 
-	return (grid);
+	for (height_index = 0; height_index < height; height_index++)
+	{
+		for (width_index = 0; width_index < width; width_index++)
+			_2D[height_index][width_index] = 0;
+	}
+
+	return (_2D);
 }
