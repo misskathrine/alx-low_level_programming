@@ -2,16 +2,16 @@
 #include <stdlib.h>
 
 /**
- * free_grid - func free up a 2d grid
- * @grid: double pointer 2d grid
- * @height: height of grid
+ * free_grid - help Frees a 2-dimensional array of integers.
+ * @grid: The 2-dimensional array of integers to be freed.
+ * @height: The height of grid.
  */
-
 void free_grid(int **grid, int height)
 {
-	int i;
+	int index;
 
-	for (i = 0; i < height; i++)
-		free(grid[i]);
+	for (index = 0; index < height; index++)
+		free(grid[index]);
+
 	free(grid);
 }
